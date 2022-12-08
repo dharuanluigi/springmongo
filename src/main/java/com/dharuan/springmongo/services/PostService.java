@@ -1,5 +1,7 @@
 package com.dharuan.springmongo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,9 @@ public class PostService {
 	public Post findById(String id) {
 		var post = repository.findById(id);
 		return post.orElseThrow(() -> new ObjectNotFoundException("Object not found in repository"));
+	}
+
+	public List<Post> findByTitle(String title) {
+		return repository.findByTitleContainingIgnoreCase(title);
 	}
 }
