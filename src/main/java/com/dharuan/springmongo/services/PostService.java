@@ -1,5 +1,6 @@
 package com.dharuan.springmongo.services;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,10 @@ public class PostService {
 	public List<Post> findByTitle(String title) {
 		// return repository.findByTitleContainingIgnoreCase(title);
 		return repository.findByTitle(title);
+	}
+
+	public List<Post> fullSearch(String text, Instant minDate, Instant maxDate) {
+		maxDate = maxDate.plusSeconds(86400); // adjust max date to next day at midnight
+		return repository.fullSearchByDate(text, minDate, maxDate);
 	}
 }
